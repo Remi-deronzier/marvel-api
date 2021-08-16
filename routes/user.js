@@ -49,6 +49,7 @@ router.post("/user/login", async (req, res) => {
         const resValue = {
           _id: user._id,
           token: user.token,
+          username: user.username,
         };
         res.status(200).json(resValue);
       } else {
