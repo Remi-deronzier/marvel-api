@@ -11,23 +11,27 @@ router.post("/user/signup", async (req, res) => {
   console.log("route: /user/signup");
   console.log(req.fields);
   try {
-    if (await User.findOne({ email: req.fields.email })) {
-      res.status(409).json({ message: "Email already used" });
+    if (
+      (await User.findOne({ email: req.fields.email })) ||
+      (await User.findOne({ username: req.fields.username }))
+    ) {
+      res.status(409).json({ message: "Email or username already used" });
     } else if (!req.fields.username) {
       res.status(400).json({ message: "You must indicate a username" });
+    } else {
+      const password = req.fields.password;
+      const salt = uid2(16);
+      const hash = SHA256(password + salt).toString(encBase64);
+      const newUser = new User({
+        email: req.fields.email,
+        username: req.fields.username,
+        token: uid2(64),
+        hash: hash,
+        salt: salt,
+      });
+      await newUser.save();
+      res.status(200).json(newUser);
     }
-    const password = req.fields.password;
-    const salt = uid2(16);
-    const hash = SHA256(password + salt).toString(encBase64);
-    const newUser = new User({
-      email: req.fields.email,
-      username: req.fields.username,
-      token: uid2(64),
-      hash: hash,
-      salt: salt,
-    });
-    await newUser.save();
-    res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
