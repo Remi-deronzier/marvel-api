@@ -12,7 +12,7 @@ router.post("/bookmarks/create", isAuthenticated, async (req, res) => {
   try {
     const { name, title, description, thumbnail } = req.fields;
     if (name && title) {
-      if (await Bookmark.findOne({ name: name })) {
+      if (await Bookmark.findOne({ name: name, author: req.user })) {
         res.status(409).json({ message: "Change the name of this bookmark" });
       } else {
         const newBookmark = new Bookmark({
@@ -53,6 +53,18 @@ router.get("/bookmark/:id", isAuthenticated, async (req, res) => {
   try {
     const bookmark = await Bookmark.findById(req.params.id);
     res.status(200).json(bookmark);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Route get all the bookmarks from a specific user
+router.get("/bookmarks/user/:id", isAuthenticated, async (req, res) => {
+  console.log("route: /bookmarks/user/:id");
+  console.log(req.params);
+  try {
+    const bookmarks = await Bookmark.find({ author: req.params.id });
+    res.status(200).json(bookmarks);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
