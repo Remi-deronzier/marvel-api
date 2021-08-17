@@ -4,7 +4,8 @@ const Bookmark = mongoose.model("Bookmark", {
   name: String,
   title: String,
   description: String,
-  thumbnail: { type: mongoose.Schema.Types.Mixed, default: {} },
+  thumbnail_path: String,
+  thumbnail_extension: String,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

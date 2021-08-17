@@ -10,7 +10,8 @@ router.post("/bookmarks/create", isAuthenticated, async (req, res) => {
   console.log("route: /bookmarks");
   console.log(req.fields);
   try {
-    const { name, title, description, thumbnail } = req.fields;
+    const { name, title, description, thumbnail_path, thumbnail_extension } =
+      req.fields;
     if (name && title) {
       if (await Bookmark.findOne({ name: name, author: req.user })) {
         res.status(409).json({ message: "Change the name of this bookmark" });
@@ -19,7 +20,8 @@ router.post("/bookmarks/create", isAuthenticated, async (req, res) => {
           name: name,
           title: title,
           description: description,
-          thumbnail: thumbnail,
+          thumbnail_path: thumbnail_path,
+          thumbnail_extension: thumbnail_extension,
           author: req.user,
         });
         await newBookmark.save();
@@ -40,7 +42,7 @@ router.get("/bookmarks", isAuthenticated, async (req, res) => {
   console.log("route: /bookmarks");
   try {
     const response = await Bookmark.find();
-    res.status(400).json(response);
+    res.status(200).json(response);
   } catch (error) {
     console.error(error.message);
   }
