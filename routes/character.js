@@ -7,11 +7,11 @@ const axios = require("axios");
 router.get("/characters", async (req, res) => {
   console.log("route: /characters");
   console.log(req.query);
-  const { limit, skip, title } = req.query;
+  const { limit, skip, name } = req.query;
   const queryParams = qs.stringify({
     limit: limit,
     skip: skip,
-    title: title,
+    name: name,
     apiKey: process.env.API_KEY_MARVEL,
   });
   try {
