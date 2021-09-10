@@ -35,3 +35,35 @@ When installation is complete, run the project:
 ```
 npx nodemon index.js
 ```
+
+## Route documentation (main routes)
+
+### /user/signup (POST)
+Add a new user in DB
+
+Body | Type | Required
+------------ | ------------- | ------------
+`email` | string | Yes
+`password` | string | Yes
+`username` | string | Yes
+
+### /user/login (POST)
+Log a user
+
+Body | Type | Required
+------------ | ------------- | ------------
+`email` | string | Yes
+`password` | string | Yes
+
+### /characters (GET)
+Get all the characters
+
+### /comics (GET)
+Get all the comics
+
+### /comics/:id (GET)
+Get one specific comic strip
+
+Param | Required | Description
+------------ | ------------- | ------------
+`id` | Yes | comic strip id
