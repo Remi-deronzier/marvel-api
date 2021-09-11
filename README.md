@@ -1,6 +1,6 @@
 # Marvel API
 
-Marvel API is the API to make my [Marvel web app](https://sleepy-hermann-22591e.netlify.app/) work. This API allows users to : create an account, login to this account, get all the Marvel characters, get all the Marvel comics, create bookmarks.
+Marvel API is the API to make my [Marvel web app](https://sleepy-hermann-22591e.netlify.app/) work. This API allows users to : create an account, log to this account, get all the Marvel characters, get all the Marvel comics, create bookmarks.
 
 Frontend project is here: 👉 [Frontend](https://github.com/Remi-deronzier/marvel-frontend)
 
